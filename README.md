@@ -1,7 +1,7 @@
 # textview-to-image
 A prototype for adding textview to image research. 
 
-It uses JLStickerTextView (https://github.com/Textcat/JLStickerTextView)
+It uses `JLStickerTextView` (https://github.com/Textcat/JLStickerTextView)
 
 ----
 ## Current Progress:
