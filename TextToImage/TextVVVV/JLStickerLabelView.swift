@@ -312,6 +312,16 @@ extension JLStickerLabelView: UITextViewDelegate {
 //                let newFrame = CGRect(x: frameOfImageProcess.origin.x, y: currentFrame.origin.y, width: frameOfImageProcess.width, height: currentFrame.height)
 //                textView.superview!.frame = newFrame
             }
+            
+            
+            let size = textView.sizeThatFits(textView.frame.size)
+            if size.width >= frameOfImageProcess.width {
+                let subString = textView.text.suffix(1)
+                textView.text.removeLast(1)
+                textView.text.append(contentsOf: "\n" +  subString)
+            }
+
+
         }
     }
 }
