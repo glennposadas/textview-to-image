@@ -250,16 +250,17 @@ extension JLStickerLabelView: UITextViewDelegate {
         
         // Take note of the old point/center.
         self.oldPoint = textView.superview?.center ?? .zero
+        self.oldFontSize = self.labelTextView?.fontSize ?? 18.0
         
         UIView.animate(withDuration: 0.3) {
             // And then apply the new center.
             textView.superview?.center = (textView.superview?.superview?.center ?? .zero)
             textView.superview?.transform = .identity
+            
+            self.labelTextView?.fontSize = 18.0
+            
             self.refresh()
         }
-        
-        let contains = frameOfImageProcess.contains(textView.superview!.frame)
-        print("CONTAINS IN SHOULD BEGIN??? ===> \(contains)")
         
         if (isShowingEditingHandles) {
             return true
@@ -271,6 +272,7 @@ extension JLStickerLabelView: UITextViewDelegate {
         UIView.animate(withDuration: 0.3) {
             textView.superview?.center = self.oldPoint
             textView.superview?.transform = CGAffineTransform(rotationAngle: self.lastRotation)
+            self.labelTextView?.fontSize = self.oldFontSize
         }
         
         print("----------- ENDediting")
@@ -300,18 +302,9 @@ extension JLStickerLabelView: UITextViewDelegate {
                 adjustsWidthToFillItsContens(self)
                 labelTextView!.attributedText = NSAttributedString(string: labelTextView!.text, attributes: labelTextView!.textAttributes)
             }
-             
+            
             let contains = frameOfImageProcess.contains(textView.superview!.frame)
             print("CONTAINS??? ===> \(contains)")
-            
-            if !contains {
-                // If exceeding, make the width of the textview equal to the width of the image.
-                var currentFrame = textView.superview!.frame
-                print("APRIL6 ----> \(currentFrame)")
-                textView.superview?.frame = currentFrame
-//                let newFrame = CGRect(x: frameOfImageProcess.origin.x, y: currentFrame.origin.y, width: frameOfImageProcess.width, height: currentFrame.height)
-//                textView.superview!.frame = newFrame
-            }
             
             
             let size = textView.sizeThatFits(textView.frame.size)
@@ -320,8 +313,7 @@ extension JLStickerLabelView: UITextViewDelegate {
                 textView.text.removeLast(1)
                 textView.text.append(contentsOf: "\n" +  subString)
             }
-
-
+            
         }
     }
 }

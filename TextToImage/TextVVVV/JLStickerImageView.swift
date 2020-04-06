@@ -16,11 +16,12 @@ public class JLStickerImageView: UIScrollView, UIGestureRecognizerDelegate {
     
     var image: UIImage!
     
-    fileprivate lazy var tapOutsideGestureRecognizer: UITapGestureRecognizer! = {
+    lazy var tapOutsideGestureRecognizer: UITapGestureRecognizer! = {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(JLStickerImageView.tapOutside))
         tapGesture.delegate = self
+        tapGesture.isEnabled = true
         return tapGesture
-
+        
     }()
     
     //MARK: -
@@ -55,10 +56,13 @@ extension JLStickerImageView {
             label.hideEditingHandlers()
         }
         
-        let labelFrame = CGRect(x: self.bounds.midX - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
-                                    y: self.bounds.midY - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
-                                    width: 80, height: 70.0)
+        let labelFrame = CGRect(x: 0,
+                                y: 0,
+                                width: 80, height: 70.0)
+        
         let labelView = JLStickerLabelView(frame: labelFrame)
+        labelView.center = self.center
+            
         labelView.setupTextLabel()
         labelView.delegate = self
         labelView.showsContentShadow = false

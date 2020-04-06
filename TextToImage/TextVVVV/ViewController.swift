@@ -19,13 +19,16 @@ class ViewController: UIViewController {
     @IBAction func addText(_ sender: Any) {
         (self.scrollVwFrame as! JLStickerImageView).addLabel()
         
-        guard let lastTextView = self.findLastTextView() else { return }
+        guard let _ = self.findLastTextView() else { return }
         
         self.scrollVwFrame.isScrollEnabled = false
         
         for gesture in self.scrollVwFrame.gestureRecognizers! {
             gesture.isEnabled = false
         }
+        
+        self.imgvwFrame.isUserInteractionEnabled = true
+        self.imgvwFrame.addGestureRecognizer((self.scrollVwFrame as! JLStickerImageView).tapOutsideGestureRecognizer)
     }
     
     func findLastTextView() -> JLAttributedTextView? {
